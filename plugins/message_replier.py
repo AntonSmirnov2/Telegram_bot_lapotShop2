@@ -2,7 +2,6 @@
 from config import USER_IDS
 from plugins.access_denied import access_denieded
 from plugins.QR_code_decryption import QR_code_decryption, qr_code_registration
-from plugins.sale_regist import sale_regist
 from plugins.echo import echo
 from plugins.info import info, contacts
 from plugins.keyboards import main_keyboard
@@ -23,11 +22,6 @@ def message_replier(messages):
         if chat_id not in USER_IDS:
             access_denieded(message)
             return
-
-        # Если пользователь в процессе регистрации покупки или запроса информации из БД ПЕРЕПИСАТЬ ЧЕРЕЗ БД
-        # if chat_id in users_in_session:
-        #     sale_regist(message)
-        #     return
 
         main_keyboard(message)
 
@@ -77,22 +71,4 @@ def message_replier(messages):
         else:
             echo(message)
             return
-
-
-def in_session():
-    try:
-        session_control = open('session_control.txt')
-        session_control_content = session_control.read()
-        session_control.close()
-    except FileNotFoundError:
-        session_control = open('session_control.txt', 'w')
-        session_control_content = ''
-        session_control.close()
-    return session_control_content
-
-
-def add_in_session(user_id, code):
-    session_control = open('session_control.txt', 'a')
-    session_control.write(f'{user_id}-{code}\n')
-    session_control.close()
 
