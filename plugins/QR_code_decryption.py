@@ -10,7 +10,6 @@
 #
 # bot = telebot.TeleBot(TELE_BOT_TOKEN)
 #
-#
 # def decrypt(path):
 #     im = Image.open(path)
 #     qr_content = decode(im)
