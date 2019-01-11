@@ -1,7 +1,7 @@
 
 from config import USER_IDS
 from plugins.access_denied import access_denieded
-from plugins.QR_code_decryption import QR_code_decryption, qr_code_registration
+# from plugins.QR_code_decryption import QR_code_decryption, qr_code_registration
 from plugins.echo import echo
 from plugins.info import info, contacts
 from plugins.keyboards import main_keyboard
@@ -54,17 +54,17 @@ def message_replier(messages):
             pass
 
         # Если пользователь прислал фото
-        if message.content_type == 'photo' and access_level in ['seller', 'user', 'admin', 'creator']:
-            decrypted_code = QR_code_decryption(message)
-            return
+        # if message.content_type == 'photo' and access_level in ['seller', 'user', 'admin', 'creator']:
+        #     decrypted_code = QR_code_decryption(message)
+        #     return
 
         # Если пользователь в процессе получения/изменения хронимых данных
         if session_status[0]:
             if 'PE' in session_status[0]:
                 change_info(message, session_status[0], session_status[1])
                 return
-            elif 'QR' in session_status[0]:
-                qr_code_registration(message, action=session_status[1], qr_code=session_status[2])
+            # elif 'QR' in session_status[0]:
+            #     qr_code_registration(message, action=session_status[1], qr_code=session_status[2])
             elif 'RD' in session_status[0]:
                 send_request(message)
         # Когда ни один вариант не подходит отвечаем ЭХО-сообщением
